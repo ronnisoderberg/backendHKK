@@ -1,0 +1,26 @@
+{
+  "kind": "collectionType",
+  "collectionName": "annual_fees",
+  "info": {
+    "singularName": "annual-fee",
+    "pluralName": "annual-fees",
+    "displayName": "annual fee",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "members": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::member.member",
+      "mappedBy": "annual_fee"
+    },
+    "arsavgift": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

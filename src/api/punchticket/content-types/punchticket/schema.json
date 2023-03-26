@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "punchtickets",
+  "info": {
+    "singularName": "punchticket",
+    "pluralName": "punchtickets",
+    "displayName": "punchticket",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "startDate": {
+      "type": "date"
+    },
+    "stopDate": {
+      "type": "date"
+    },
+    "active": {
+      "type": "boolean",
+      "required": true,
+      "default": true
+    },
+    "triggers": {
+      "type": "integer"
+    },
+    "nr": {
+      "type": "integer",
+      "required": true
+    }
+  }
+}

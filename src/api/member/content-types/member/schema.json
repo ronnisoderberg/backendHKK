@@ -1,0 +1,55 @@
+{
+  "kind": "collectionType",
+  "collectionName": "members",
+  "info": {
+    "singularName": "member",
+    "pluralName": "members",
+    "displayName": "member",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "personNummer": {
+      "type": "string",
+      "required": false
+    },
+    "lastName": {
+      "type": "string",
+      "required": true
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "adress": {
+      "type": "string"
+    },
+    "postNr": {
+      "type": "string"
+    },
+    "telefonNr": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "memberships": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::membership.membership",
+      "mappedBy": "member"
+    },
+    "Slug": {
+      "type": "uid"
+    },
+    "annual_fee": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::annual-fee.annual-fee",
+      "inversedBy": "members"
+    }
+  }
+}

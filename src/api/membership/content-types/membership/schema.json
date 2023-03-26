@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "memberships",
+  "info": {
+    "singularName": "membership",
+    "pluralName": "memberships",
+    "displayName": "membership",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "price": {
+      "type": "integer"
+    },
+    "startDate": {
+      "type": "date"
+    },
+    "stopDate": {
+      "type": "date"
+    },
+    "Slug": {
+      "type": "uid"
+    },
+    "member": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::member.member",
+      "inversedBy": "memberships"
+    },
+    "typ": {
+      "type": "string"
+    }
+  }
+}

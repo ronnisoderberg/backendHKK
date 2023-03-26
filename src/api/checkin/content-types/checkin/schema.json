@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "checkins",
+  "info": {
+    "singularName": "checkin",
+    "pluralName": "checkins",
+    "displayName": "checkin"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "time": {
+      "type": "datetime"
+    }
+  }
+}
