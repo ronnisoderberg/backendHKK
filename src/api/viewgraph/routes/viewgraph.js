@@ -12,8 +12,8 @@ module.exports = {
     },
     {
       method: "GET",
-      path: "/viewgraph/test",
-      handler: "viewgraph.test1",
+      path: "/viewgraph/vecka",
+      handler: "viewgraph.vecka",
       config: {
         policies: [],
         middlewares: [],

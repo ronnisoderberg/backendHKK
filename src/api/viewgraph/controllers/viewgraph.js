@@ -4,34 +4,44 @@ const { createCoreController } = require("@strapi/strapi").factories;
 const { sanitize } = require("@strapi/utils");
 const { contentAPI } = sanitize;
 
+function addDays(date, days) {
+  var result = new Date(date);
+  result.setDate(result.getDate() + days);
+  return result;
+}
+function printTodayDate() {
+  const today = new Date();
+  today.setUTCHours(0, 0, 0, 0); // set time to 0
+  return today;
+}
+
 module.exports = {
   chart: async (ctx, next) => {
     const { timeframe } = ctx.params;
     console.log(timeframe);
   },
-  test1: async (ctx, next) => {
-    // // createCoreController("api::membership.membership");
-    // const contentType = strapi.contentType("api::checkin.checkin");
-    // const sanitizedQueryParams = await contentAPI.query(
-    //   ctx.query,
-    //   contentType,
-    //   ctx.state.auth
-    // );
-
-    // const entities = await strapi.entityService.findMany(
-    //   contentType.uid,
-    //   sanitizedQueryParams
-    // );
-
+  //---------------------------------------------------->>>>>>>>>>>>>>>>>>>>>
+  vecka: async (ctx, next) => {
+    const onelessDateToday = addDays(new Date(), -1);
+    const today = printTodayDate();
     const [entries, count] = await strapi.db
       .query("api::checkin.checkin")
       .findWithCount({
-        orderBy: { time: "DESC" },
+        orderBy: { time: "ASC" },
         limit: 4,
+        where: {
+          time: {
+            $between: [addDays(printTodayDate(), -7), printTodayDate()],
+          },
+        },
       });
-    console.log("🚀 ~ file: viewgraph.js:34 ~ test1: ~ entries:", entries);
-    console.log("🚀 ~ file: viewgraph.js:27 ~ test1: ~ count:", count);
 
-    // return await contentAPI.output(entities, contentType, ctx.state.auth);
+      
+    console.log("🚀 ~ file: viewgraph.js:34 ~ vecka: ~ entries:", entries);
+    console.log("🚀 ~ file: viewgraph.js:27 ~ vecka: ~ count:", count);
+    console.log(
+      "🚀 ~ file: viewgraph.js:27 ~ vecka: ~ count:",
+      addDays(printTodayDate(), -3)
+    );
   },
 };
