@@ -28,20 +28,21 @@ module.exports = {
       .query("api::checkin.checkin")
       .findWithCount({
         orderBy: { time: "ASC" },
-        limit: 4,
+        // limit: 4,
         where: {
           time: {
-            $between: [addDays(printTodayDate(), -7), printTodayDate()],
+            $between: [addDays(printTodayDate(), -400), printTodayDate()],
           },
         },
       });
 
-      
     console.log("🚀 ~ file: viewgraph.js:34 ~ vecka: ~ entries:", entries);
     console.log("🚀 ~ file: viewgraph.js:27 ~ vecka: ~ count:", count);
     console.log(
       "🚀 ~ file: viewgraph.js:27 ~ vecka: ~ count:",
       addDays(printTodayDate(), -3)
     );
+
+    return entries;
   },
 };
