@@ -1,8 +1,9 @@
 "use strict";
-
 const { createCoreController } = require("@strapi/strapi").factories;
 const { sanitize } = require("@strapi/utils");
 const { contentAPI } = sanitize;
+
+const antalDagarBak = -400;
 
 function addDays(date, days) {
   var result = new Date(date);
@@ -20,7 +21,7 @@ module.exports = {
     const { timeframe } = ctx.params;
     console.log(timeframe);
   },
-  //---------------------------------------------------->>>>>>>>>>>>>>>>>>>>>
+
   vecka: async (ctx, next) => {
     const onelessDateToday = addDays(new Date(), -1);
     const today = printTodayDate();
@@ -36,13 +37,50 @@ module.exports = {
         },
       });
 
-    console.log("🚀 ~ file: viewgraph.js:34 ~ vecka: ~ entries:", entries);
-    console.log("🚀 ~ file: viewgraph.js:27 ~ vecka: ~ count:", count);
-    console.log(
-      "🚀 ~ file: viewgraph.js:27 ~ vecka: ~ count:",
-      addDays(printTodayDate(), -3)
-    );
+    function groupTimesByFiveMinutes(arr) {
+      const timeGroups = {};
+      arr.forEach((item) => {
+        const time = new Date(item.time);
+        let minutes = time.getUTCMinutes();
 
-    return entries;
+        const timeGroupStart = new Date(
+          Date.UTC(
+            time.getUTCFullYear(),
+            time.getUTCMonth(),
+            time.getUTCDate(),
+            time.getUTCHours(),
+            minutes - (minutes % 5)
+          )
+        );
+        const timeGroupEnd = new Date(
+          timeGroupStart.getTime() + 4 * 60000 // Lägger till 4 minuter
+        );
+
+        const timeGroupIndex = {
+          start: timeGroupStart,
+          end: timeGroupEnd,
+        };
+
+        const timeGroup = `${timeGroupIndex.start.toUTCString()}-${timeGroupIndex.end.toUTCString()}`;
+
+        if (timeGroup in timeGroups) {
+          timeGroups[timeGroup].antal++;
+        } else {
+          timeGroups[timeGroup] = { antal: 1, tidsSpann: timeGroup };
+        }
+      });
+
+      Object.entries(timeGroups).forEach(([key, value]) => {
+        console.log(`${key} Antal: ${value.antal}`);
+      });
+
+      return Object.values(timeGroups).sort((a, b) => {
+        const dateA = new Date(a.tidsSpann.split("-")[0]);
+        const dateB = new Date(b.tidsSpann.split("-")[0]);
+        return dateA - dateB;
+      });
+    }
+
+    return groupTimesByFiveMinutes(entries);
   },
 };
